@@ -1,0 +1,10 @@
+main: me.pesekjan.multiworld.MultiWorld
+name: MultiWorld
+version: 1.0.0
+api-version: 1.13
+
+
+commands:
+  cw:
+    description: creates world
+    usage: /cw
