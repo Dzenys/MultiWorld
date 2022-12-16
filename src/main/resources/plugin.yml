@@ -6,5 +6,5 @@ api-version: 1.13
 
 commands:
   cw:
-    description: creates world
+    description: allows to operate with worlds
     usage: /cw
