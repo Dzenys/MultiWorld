@@ -1,6 +1,7 @@
 package me.pesekjan.multiworld;
 
 import me.pesekjan.multiworld.guis.DifficultyGui;
+import me.pesekjan.multiworld.guis.StructuresGui;
 import me.pesekjan.multiworld.guis.WorldTypeGui;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public class ClickEvents implements Listener {
                 case POPPY -> {
                     player.openInventory(DifficultyGui.gui2());
                     optionList.worldtype = WorldType.NORMAL;
-;
+                    ;
                 }
                 case ROSE_BUSH -> {
                     player.openInventory(DifficultyGui.gui2());
@@ -44,7 +45,6 @@ public class ClickEvents implements Listener {
                     optionList.genSettings =
                             "{\"layers\": [{\"block\": \"air\", \"height\": 1}], \"biome\":\"plains\"}";
 
-
                 }
 
 
@@ -57,21 +57,34 @@ public class ClickEvents implements Listener {
             switch (ce.getCurrentItem().getType()) {
                 case LIME_CONCRETE -> {
                     optionList.difficulty = Difficulty.PEACEFUL;
+                    player.openInventory(StructuresGui.gui3());
                 }
                 case YELLOW_CONCRETE -> {
                     optionList.difficulty = Difficulty.EASY;
+                    player.openInventory(StructuresGui.gui3());
                 }
                 case ORANGE_CONCRETE -> {
                     optionList.difficulty = Difficulty.NORMAL;
+                    player.openInventory(StructuresGui.gui3());
                 }
                 case RED_CONCRETE -> {
                     optionList.difficulty = Difficulty.HARD;
+                    player.openInventory(StructuresGui.gui3());
                 }
                 default -> {
                 }
-
-
             }
+        } else if (ce.getView().getTitle().equals(StructuresGui.SELECTION_GUI3)) {
+            ce.setCancelled(true);
+            if (ce.getCurrentItem() == null) return;
+            if(ce.getCurrentItem().getType() != Material.LIME_CONCRETE_POWDER &&
+                    ce.getCurrentItem().getType() != Material.RED_CONCRETE_POWDER) {
+                return;
+            }
+            optionList.structures = ce.getCurrentItem().getType() == Material.LIME_CONCRETE_POWDER;
+            player.closeInventory();
+            player.sendMessage(ChatColor.RED + "Vytvarim svet " + optionList.name);
+            createWorld(optionList);
         }
     }
 
@@ -83,6 +96,9 @@ public class ClickEvents implements Listener {
         WorldCreator wc = new WorldCreator(optionList.name);
         wc.environment(World.Environment.NORMAL);
         wc.type(optionList.worldtype);
+        wc.generateStructures(optionList.structures);
+        if(optionList.genSettings != null)
+            wc.generatorSettings(optionList.genSettings);
         World world = wc.createWorld();
         if(world == null)
             return null;

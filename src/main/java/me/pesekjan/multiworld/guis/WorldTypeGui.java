@@ -19,14 +19,14 @@ public class WorldTypeGui {
 
         ItemStack glassPane = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta im = glassPane.getItemMeta();
-        if (im != null) im.setDisplayName("");
+        if (im != null) im.setDisplayName(ChatColor.WHITE + "");
         glassPane.setItemMeta(im);
 
         for (int i = 0; i < inventorySize; i++) {
             inventory.setItem(i, glassPane);
         }
 
-        int[] itemLocations = {11, 13, 15, 17};
+        int[] itemLocations = {10, 12, 14, 16};
 
         ItemStack p = new ItemStack(Material.POPPY);
         ItemMeta im1 = p.getItemMeta();

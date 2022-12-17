@@ -18,7 +18,7 @@ public class MultiWorld extends JavaPlugin {
     @Override
     public void onEnable() {
         plugin = this;
-        getCommand("cw").setExecutor(new InventoryListener());
+        getCommand("cw").setExecutor(new Command());
         getServer().getPluginManager().registerEvents(new ClickEvents(), this);
         saveDefaultConfig();
         Config.load();

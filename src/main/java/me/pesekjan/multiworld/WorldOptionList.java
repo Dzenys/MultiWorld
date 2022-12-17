@@ -11,10 +11,11 @@ public class WorldOptionList {
 
     public static final Map<Player, WorldOptionList> WORLD_OPTION_LIST_MAP = new HashMap<>();
 
-    public  Difficulty difficulty = null;
-    public  String owner = null;
-    public  WorldType worldtype = null;
-    public  String name = null;
+    public Difficulty difficulty = null;
+    public String owner = null;
+    public WorldType worldtype = null;
+    public String name = null;
     public String genSettings = null;
+    public boolean structures;
 
 }
